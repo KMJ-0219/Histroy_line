@@ -17,6 +17,7 @@
             color: white;
             overflow: hidden;
             height: 100vh;
+            touch-action: pan-x pan-y;
         }
         
         .header {
@@ -44,6 +45,17 @@
         .header-controls {
             display: flex;
             gap: 10px;
+            align-items: center;
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #d4af37;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
         }
         
         .btn {
@@ -56,12 +68,17 @@
             font-weight: bold;
             font-size: 14px;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
         
         .btn:hover {
             background: linear-gradient(135deg, #ffd700, #d4af37);
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
             transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
         }
         
         .btn-danger {
@@ -133,6 +150,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(5px);
+            user-select: none;
         }
         
         .focus-card:hover {
@@ -202,6 +220,25 @@
             transform: scale(1.1);
         }
         
+        .mobile-menu {
+            position: fixed;
+            top: 60px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 15px;
+            z-index: 1100;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 180px;
+        }
+        
+        .mobile-menu.active {
+            display: flex;
+        }
+        
         .modal {
             position: fixed;
             top: 0;
@@ -213,6 +250,7 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
+            padding: 10px;
         }
         
         .modal.active {
@@ -226,7 +264,7 @@
             padding: 24px;
             width: 90%;
             max-width: 600px;
-            max-height: 80vh;
+            max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
@@ -490,6 +528,297 @@
         .empty-state h3 {
             margin-bottom: 10px;
         }
+
+        /* 태블릿용 반응형 디자인 */
+        @media (max-width: 1024px) {
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .timeline {
+                width: 60px;
+                left: 10px;
+            }
+            
+            .focus-container {
+                left: 80px;
+                right: 10px;
+            }
+            
+            .focus-card {
+                width: 160px;
+                min-height: 90px;
+                padding: 12px;
+            }
+            
+            .card-title {
+                font-size: 12px;
+            }
+            
+            .card-year {
+                font-size: 10px;
+            }
+            
+            .card-type {
+                font-size: 8px;
+            }
+            
+            .details-panel {
+                width: 320px;
+            }
+            
+            .legend {
+                left: 80px;
+                gap: 10px;
+                padding: 8px 15px;
+            }
+            
+            .legend-item {
+                font-size: 11px;
+            }
+        }
+
+        /* 모바일용 반응형 디자인 */
+        @media (max-width: 768px) {
+            .header {
+                padding: 8px 15px;
+                flex-wrap: wrap;
+            }
+            
+            .header h1 {
+                font-size: 16px;
+                flex: 1;
+            }
+            
+            .header-controls {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .timeline {
+                width: 50px;
+                left: 5px;
+                padding: 10px 5px;
+            }
+            
+            .year-marker {
+                font-size: 10px;
+                padding: 6px 0;
+                padding-left: 8px;
+            }
+            
+            .year-marker::before {
+                width: 8px;
+                height: 8px;
+                left: -4px;
+            }
+            
+            .focus-container {
+                left: 60px;
+                right: 5px;
+                top: 70px;
+            }
+            
+            .focus-card {
+                width: 140px;
+                min-height: 80px;
+                padding: 10px;
+            }
+            
+            .focus-card:hover {
+                transform: scale(1.05);
+            }
+            
+            .card-title {
+                font-size: 11px;
+                margin-bottom: 6px;
+            }
+            
+            .card-year {
+                font-size: 9px;
+                margin-bottom: 4px;
+            }
+            
+            .card-type {
+                font-size: 7px;
+                padding: 1px 4px;
+            }
+            
+            .card-controls {
+                top: -8px;
+                right: -8px;
+                opacity: 1;
+            }
+            
+            .card-btn {
+                width: 20px;
+                height: 20px;
+                font-size: 10px;
+            }
+            
+            .details-panel {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: auto;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+                border: none;
+                border-top: 2px solid #d4af37;
+                border-radius: 20px 20px 0 0;
+            }
+            
+            .details-panel.open {
+                transform: translateY(0);
+                right: 0;
+            }
+            
+            .close-details {
+                top: 15px;
+                right: 15px;
+                font-size: 24px;
+            }
+            
+            .legend {
+                left: 60px;
+                bottom: 10px;
+                gap: 8px;
+                padding: 6px 12px;
+                flex-wrap: wrap;
+                max-width: calc(100% - 70px);
+            }
+            
+            .legend-item {
+                font-size: 10px;
+            }
+            
+            .legend-color {
+                width: 12px;
+                height: 12px;
+            }
+            
+            .modal-content {
+                padding: 16px;
+                margin: 5px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .modal-actions {
+                flex-direction: column-reverse;
+                gap: 8px;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .status-message {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                transform: translateY(-100px);
+                padding: 10px 16px;
+                text-align: center;
+            }
+            
+            .status-message.show {
+                transform: translateY(0);
+            }
+        }
+
+        /* 아주 작은 화면 (360px 이하) */
+        @media (max-width: 360px) {
+            .focus-card {
+                width: 120px;
+                min-height: 70px;
+                padding: 8px;
+            }
+            
+            .card-title {
+                font-size: 10px;
+            }
+            
+            .card-year {
+                font-size: 8px;
+            }
+            
+            .card-type {
+                font-size: 6px;
+            }
+            
+            .timeline {
+                width: 40px;
+            }
+            
+            .focus-container {
+                left: 45px;
+            }
+            
+            .legend {
+                left: 45px;
+                padding: 4px 8px;
+            }
+        }
+
+        /* 터치 디바이스에서의 호버 효과 개선 */
+        @media (hover: none) {
+            .focus-card:hover {
+                transform: none;
+                border-color: #4a7c59;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            }
+            
+            .card-controls {
+                opacity: 1;
+            }
+            
+            .btn:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
+        /* 가로 모드 모바일 */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .header {
+                padding: 5px 10px;
+            }
+            
+            .header h1 {
+                font-size: 14px;
+            }
+            
+            .timeline {
+                top: 50px;
+                width: 45px;
+            }
+            
+            .focus-container {
+                top: 50px;
+                left: 50px;
+            }
+            
+            .legend {
+                left: 50px;
+                bottom: 5px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -500,6 +829,13 @@
             <button class="btn" onclick="toggleEditMode()" id="editToggle">편집 모드</button>
             <button class="btn" onclick="refreshData()">🔄 새로고침</button>
         </div>
+        <button class="menu-toggle" onclick="toggleMobileMenu()" id="menuToggle">☰</button>
+    </div>
+    
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="btn" onclick="openAddModal(); closeMobileMenu()">+ 단체 추가</button>
+        <button class="btn" onclick="toggleEditMode(); closeMobileMenu()" id="mobileEditToggle">편집 모드</button>
+        <button class="btn" onclick="refreshData(); closeMobileMenu()">🔄 새로고침</button>
     </div>
     
     <div class="timeline" id="timeline">
@@ -621,8 +957,52 @@
         let maxYear = 1945;
         let isEditMode = false;
         let currentEditingId = null;
+        let isMobileMenuOpen = false;
+        
+        // 모바일 메뉴 관리
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const toggle = document.getElementById('menuToggle');
+            
+            isMobileMenuOpen = !isMobileMenuOpen;
+            
+            if (isMobileMenuOpen) {
+                menu.classList.add('active');
+                toggle.textContent = '✕';
+            } else {
+                menu.classList.remove('active');
+                toggle.textContent = '☰';
+            }
+        }
+        
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const toggle = document.getElementById('menuToggle');
+            
+            isMobileMenuOpen = false;
+            menu.classList.remove('active');
+            toggle.textContent = '☰';
+        }
+        
+        // 모바일에서 외부 클릭 시 메뉴 닫기
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('mobileMenu');
+            const toggle = document.getElementById('menuToggle');
+            
+            if (isMobileMenuOpen && !menu.contains(e.target) && !toggle.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
         
         // 유틸리티 함수들
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+        
+        function isTablet() {
+            return window.innerWidth <= 1024 && window.innerWidth > 768;
+        }
+        
         function showStatus(message, type = 'info') {
             const statusEl = document.getElementById('statusMessage');
             statusEl.textContent = message;
@@ -668,7 +1048,7 @@
         function yearToY(year) {
             if (!year || maxYear === minYear) return 100;
             const yearRange = maxYear - minYear;
-            const containerHeight = window.innerHeight - 180;
+            const containerHeight = window.innerHeight - (isMobile() ? 140 : 180);
             return ((year - minYear) / yearRange) * (containerHeight - 200) + 50;
         }
         
@@ -887,7 +1267,7 @@
                 marker.className = 'year-marker';
                 marker.textContent = year + '년';
                 
-                const containerHeight = window.innerHeight - 180;
+                const containerHeight = window.innerHeight - (isMobile() ? 140 : 180);
                 const relativeY = ((year - minYear) / yearRange) * (containerHeight - 100);
                 marker.style.position = 'absolute';
                 marker.style.top = relativeY + 'px';
@@ -943,7 +1323,7 @@
                     <div class="card-type">${displayType}</div>
                 `;
                 
-                // 이벤트 리스너 추가
+                // 이벤트 리스너 추가 - 터치 디바이스 고려
                 if (isEditMode) {
                     card.addEventListener('click', (e) => {
                         if (!e.target.classList.contains('card-btn')) {
@@ -954,8 +1334,11 @@
                     card.addEventListener('click', () => showDetails(org));
                 }
                 
-                card.addEventListener('mouseenter', () => highlightConnections(org.id));
-                card.addEventListener('mouseleave', () => clearHighlights());
+                // 터치 디바이스가 아닌 경우에만 호버 효과 적용
+                if (window.matchMedia('(hover: hover)').matches) {
+                    card.addEventListener('mouseenter', () => highlightConnections(org.id));
+                    card.addEventListener('mouseleave', () => clearHighlights());
+                }
                 
                 container.appendChild(card);
                 focusCards.set(org.id, { element: card, data: org, position: pos });
@@ -965,10 +1348,24 @@
         function calculateOptimalPositions() {
             if (organizations.length === 0) return [];
             
-            const containerWidth = window.innerWidth - 180;
-            const cardWidth = 190;
-            const cardHeight = 100;
-            const minSpacing = 20;
+            let containerWidth, cardWidth, cardHeight, minSpacing;
+            
+            if (isMobile()) {
+                containerWidth = window.innerWidth - 70;
+                cardWidth = 140;
+                cardHeight = 80;
+                minSpacing = 15;
+            } else if (isTablet()) {
+                containerWidth = window.innerWidth - 100;
+                cardWidth = 160;
+                cardHeight = 90;
+                minSpacing = 18;
+            } else {
+                containerWidth = window.innerWidth - 180;
+                cardWidth = 190;
+                cardHeight = 100;
+                minSpacing = 20;
+            }
             
             // 기본 위치 정보 초기화
             const positions = organizations.map(org => ({
@@ -1056,10 +1453,14 @@
             const fromPos = fromCard.position;
             const toPos = toCard.position;
             
-            const fromCenterX = fromPos.x + 95;
-            const fromCenterY = fromPos.y + 50;
-            const toCenterX = toPos.x + 95;
-            const toCenterY = toPos.y + 50;
+            // 카드 크기를 디바이스에 따라 조정
+            const cardWidth = isMobile() ? 140 : (isTablet() ? 160 : 190);
+            const cardHeight = isMobile() ? 80 : (isTablet() ? 90 : 100);
+            
+            const fromCenterX = fromPos.x + cardWidth / 2;
+            const fromCenterY = fromPos.y + cardHeight / 2;
+            const toCenterX = toPos.x + cardWidth / 2;
+            const toCenterY = toPos.y + cardHeight / 2;
             
             const dx = toCenterX - fromCenterX;
             const dy = toCenterY - fromCenterY;
@@ -1088,7 +1489,7 @@
             if (targetCard) {
                 targetCard.style.boxShadow = '0 0 25px rgba(212, 175, 55, 0.7)';
                 targetCard.style.borderColor = '#d4af37';
-                targetCard.style.transform = 'scale(1.03)';
+                targetCard.style.transform = isMobile() ? 'scale(1.02)' : 'scale(1.03)';
             }
         }
         
@@ -1135,14 +1536,19 @@
         function toggleEditMode() {
             isEditMode = !isEditMode;
             const toggleBtn = document.getElementById('editToggle');
+            const mobileToggleBtn = document.getElementById('mobileEditToggle');
             
             if (isEditMode) {
                 toggleBtn.textContent = '편집 종료';
                 toggleBtn.classList.add('btn-danger');
+                mobileToggleBtn.textContent = '편집 종료';
+                mobileToggleBtn.classList.add('btn-danger');
                 showStatus('편집 모드가 활성화되었습니다. 카드를 클릭하여 편집할 수 있습니다.', 'info');
             } else {
                 toggleBtn.textContent = '편집 모드';
                 toggleBtn.classList.remove('btn-danger');
+                mobileToggleBtn.textContent = '편집 모드';
+                mobileToggleBtn.classList.remove('btn-danger');
                 showStatus('편집 모드가 비활성화되었습니다.', 'info');
             }
             
@@ -1157,6 +1563,11 @@
             document.getElementById('orgForm').reset();
             currentEditingId = null;
             document.getElementById('orgModal').classList.add('active');
+            
+            // 모바일에서는 바디 스크롤 방지
+            if (isMobile()) {
+                document.body.style.overflow = 'hidden';
+            }
         }
         
         function openEditModal(orgId) {
@@ -1177,11 +1588,19 @@
             });
             
             document.getElementById('orgModal').classList.add('active');
+            
+            // 모바일에서는 바디 스크롤 방지
+            if (isMobile()) {
+                document.body.style.overflow = 'hidden';
+            }
         }
         
         function closeModal() {
             document.getElementById('orgModal').classList.remove('active');
             currentEditingId = null;
+            
+            // 바디 스크롤 복원
+            document.body.style.overflow = '';
         }
         
         function handleFormSubmit(event) {
@@ -1310,6 +1729,11 @@
             }
             
             panel.classList.add('open');
+            
+            // 모바일에서는 바디 스크롤 방지
+            if (isMobile()) {
+                document.body.style.overflow = 'hidden';
+            }
         }
         
         function closeDetails() {
@@ -1317,6 +1741,9 @@
             document.querySelectorAll('.focus-card.selected').forEach(card => {
                 card.classList.remove('selected');
             });
+            
+            // 바디 스크롤 복원
+            document.body.style.overflow = '';
         }
         
         // 이벤트 리스너 설정
@@ -1328,6 +1755,9 @@
                 }
                 if (document.getElementById('detailsPanel').classList.contains('open')) {
                     closeDetails();
+                }
+                if (isMobileMenuOpen) {
+                    closeMobileMenu();
                 }
             }
             
@@ -1345,18 +1775,80 @@
             }
         });
         
-        // 화면 크기 변경 시 재배치
-        window.addEventListener('resize', () => {
-            if (organizations.length > 0) {
-                createTimeline();
-                createFocusCards();
-                createConnections();
+        // 터치 이벤트 처리
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchStartTime = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+        }, { passive: true });
+        
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const touchEndTime = Date.now();
+            
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            const deltaTime = touchEndTime - touchStartTime;
+            
+            // 스와이프 감지 (빠른 터치 + 충분한 거리)
+            if (deltaTime < 300 && Math.abs(deltaX) > 100 && Math.abs(deltaY) < 50) {
+                const detailsPanel = document.getElementById('detailsPanel');
+                
+                // 오른쪽에서 왼쪽으로 스와이프: 상세 패널 열기
+                if (deltaX < -100 && !detailsPanel.classList.contains('open')) {
+                    // 현재 선택된 카드가 있으면 상세 정보 표시
+                    const selectedCard = document.querySelector('.focus-card.selected');
+                    if (selectedCard) {
+                        const orgId = parseInt(selectedCard.id.replace('card-', ''));
+                        const org = organizations.find(o => o.id === orgId);
+                        if (org) {
+                            showDetails(org);
+                        }
+                    }
+                }
+                
+                // 왼쪽에서 오른쪽으로 스와이프: 상세 패널 닫기
+                if (deltaX > 100 && detailsPanel.classList.contains('open')) {
+                    closeDetails();
+                }
             }
+        }, { passive: true });
+        
+        // 화면 크기 변경 시 재배치
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (organizations.length > 0) {
+                    createTimeline();
+                    createFocusCards();
+                    createConnections();
+                    updateLegend();
+                }
+            }, 250);
+        });
+        
+        // 화면 방향 변경 감지
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                if (organizations.length > 0) {
+                    createTimeline();
+                    createFocusCards();
+                    createConnections();
+                    updateLegend();
+                }
+            }, 100);
         });
         
         // 앱 초기화
         console.log('한국독립운동 중점도 시각화 애플리케이션을 시작합니다...');
         console.log('- 단축키: ESC (모달 닫기), Ctrl+N (새 단체 추가)');
+        console.log('- 모바일: 스와이프로 상세 패널 제어');
         
         // 페이지 로드 완료 후 데이터 로드
         document.addEventListener('DOMContentLoaded', loadData);
@@ -1366,6 +1858,14 @@
             document.addEventListener('DOMContentLoaded', loadData);
         } else {
             loadData();
+        }
+        
+        // PWA 지원을 위한 서비스 워커 등록 (선택사항)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // 서비스 워커 파일이 있다면 등록
+                // navigator.serviceWorker.register('/sw.js');
+            });
         }
     </script>
 </body>
