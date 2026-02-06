@@ -541,27 +541,27 @@
             }
             
             .timeline {
-                width: 60px;
-                left: 10px;
+                width: 50px;
+                left: 8px;
             }
             
             .focus-container {
-                left: 80px;
-                right: 10px;
+                left: 65px;
+                right: 8px;
             }
             
             .focus-card {
-                width: 160px;
-                min-height: 90px;
-                padding: 12px;
+                width: 140px;
+                min-height: 80px;
+                padding: 10px;
             }
             
             .card-title {
-                font-size: 12px;
+                font-size: 11px;
             }
             
             .card-year {
-                font-size: 10px;
+                font-size: 9px;
             }
             
             .card-type {
@@ -569,17 +569,17 @@
             }
             
             .details-panel {
-                width: 320px;
+                width: 280px;
             }
             
             .legend {
-                left: 80px;
-                gap: 10px;
-                padding: 8px 15px;
+                left: 65px;
+                gap: 8px;
+                padding: 6px 12px;
             }
             
             .legend-item {
-                font-size: 11px;
+                font-size: 10px;
             }
         }
 
@@ -604,64 +604,66 @@
             }
             
             .timeline {
-                width: 50px;
+                width: 40px;
                 left: 5px;
-                padding: 10px 5px;
+                padding: 10px 3px;
             }
             
             .year-marker {
-                font-size: 10px;
-                padding: 6px 0;
-                padding-left: 8px;
+                font-size: 9px;
+                padding: 4px 0;
+                padding-left: 6px;
             }
             
             .year-marker::before {
-                width: 8px;
-                height: 8px;
-                left: -4px;
+                width: 6px;
+                height: 6px;
+                left: -3px;
             }
             
             .focus-container {
-                left: 60px;
+                left: 50px;
                 right: 5px;
                 top: 70px;
             }
             
             .focus-card {
-                width: 140px;
-                min-height: 80px;
-                padding: 10px;
+                width: 110px;
+                min-height: 70px;
+                padding: 8px;
+                border-radius: 8px;
             }
             
             .focus-card:hover {
-                transform: scale(1.05);
+                transform: scale(1.03);
             }
             
             .card-title {
-                font-size: 11px;
-                margin-bottom: 6px;
+                font-size: 10px;
+                margin-bottom: 4px;
+                line-height: 1.1;
             }
             
             .card-year {
-                font-size: 9px;
-                margin-bottom: 4px;
+                font-size: 8px;
+                margin-bottom: 3px;
             }
             
             .card-type {
                 font-size: 7px;
-                padding: 1px 4px;
+                padding: 1px 3px;
             }
             
             .card-controls {
-                top: -8px;
-                right: -8px;
+                top: -6px;
+                right: -6px;
                 opacity: 1;
             }
             
             .card-btn {
-                width: 20px;
-                height: 20px;
-                font-size: 10px;
+                width: 18px;
+                height: 18px;
+                font-size: 9px;
             }
             
             .details-panel {
@@ -690,21 +692,21 @@
             }
             
             .legend {
-                left: 60px;
-                bottom: 10px;
-                gap: 8px;
-                padding: 6px 12px;
+                left: 50px;
+                bottom: 8px;
+                gap: 6px;
+                padding: 4px 8px;
                 flex-wrap: wrap;
-                max-width: calc(100% - 70px);
+                max-width: calc(100% - 60px);
             }
             
             .legend-item {
-                font-size: 10px;
+                font-size: 9px;
             }
             
             .legend-color {
-                width: 12px;
-                height: 12px;
+                width: 10px;
+                height: 10px;
             }
             
             .modal-content {
@@ -742,37 +744,78 @@
             }
         }
 
-        /* 아주 작은 화면 (360px 이하) */
-        @media (max-width: 360px) {
+        /* 아주 작은 화면 (480px 이하) */
+        @media (max-width: 480px) {
             .focus-card {
-                width: 120px;
-                min-height: 70px;
-                padding: 8px;
+                width: 95px;
+                min-height: 60px;
+                padding: 6px;
             }
             
             .card-title {
-                font-size: 10px;
+                font-size: 9px;
+                margin-bottom: 3px;
             }
             
             .card-year {
-                font-size: 8px;
+                font-size: 7px;
+                margin-bottom: 2px;
             }
             
             .card-type {
                 font-size: 6px;
+                padding: 1px 2px;
             }
             
             .timeline {
-                width: 40px;
+                width: 35px;
             }
             
             .focus-container {
-                left: 45px;
+                left: 42px;
             }
             
             .legend {
-                left: 45px;
-                padding: 4px 8px;
+                left: 42px;
+                padding: 3px 6px;
+            }
+        }
+
+        /* 매우 작은 화면 (360px 이하) */
+        @media (max-width: 360px) {
+            .focus-card {
+                width: 85px;
+                min-height: 55px;
+                padding: 5px;
+            }
+            
+            .card-title {
+                font-size: 8px;
+                margin-bottom: 2px;
+            }
+            
+            .card-year {
+                font-size: 6px;
+                margin-bottom: 1px;
+            }
+            
+            .card-type {
+                font-size: 5px;
+                padding: 1px;
+            }
+            
+            .timeline {
+                width: 30px;
+            }
+            
+            .focus-container {
+                left: 35px;
+            }
+            
+            .legend {
+                left: 35px;
+                padding: 2px 4px;
+                font-size: 8px;
             }
         }
 
@@ -1350,15 +1393,25 @@
             
             let containerWidth, cardWidth, cardHeight, minSpacing;
             
-            if (isMobile()) {
-                containerWidth = window.innerWidth - 70;
+            if (window.innerWidth <= 360) {
+                containerWidth = window.innerWidth - 40;
+                cardWidth = 85;
+                cardHeight = 55;
+                minSpacing = 10;
+            } else if (window.innerWidth <= 480) {
+                containerWidth = window.innerWidth - 50;
+                cardWidth = 95;
+                cardHeight = 60;
+                minSpacing = 12;
+            } else if (window.innerWidth <= 768) {
+                containerWidth = window.innerWidth - 60;
+                cardWidth = 110;
+                cardHeight = 70;
+                minSpacing = 15;
+            } else if (window.innerWidth <= 1024) {
+                containerWidth = window.innerWidth - 80;
                 cardWidth = 140;
                 cardHeight = 80;
-                minSpacing = 15;
-            } else if (isTablet()) {
-                containerWidth = window.innerWidth - 100;
-                cardWidth = 160;
-                cardHeight = 90;
                 minSpacing = 18;
             } else {
                 containerWidth = window.innerWidth - 180;
@@ -1367,19 +1420,44 @@
                 minSpacing = 20;
             }
             
-            // 기본 위치 정보 초기화
-            const positions = organizations.map(org => ({
-                id: org.id,
-                x: Math.random() * (containerWidth - cardWidth - 40) + 20,
-                y: yearToY(org.생성연도 || minYear),
-                originalY: yearToY(org.생성연도 || minYear),
-                org: org,
-                connections: []
-            }));
+            const containerHeight = window.innerHeight - (isMobile() ? 140 : 180);
+            const availableWidth = containerWidth - cardWidth - 40;
+            const availableHeight = containerHeight - 100;
             
-            // 간단한 겹침 방지 알고리즘
-            for (let iteration = 0; iteration < 50; iteration++) {
+            // 그리드 기반 초기 배치
+            const cols = Math.max(2, Math.floor(availableWidth / (cardWidth + minSpacing)));
+            const rows = Math.max(2, Math.floor(availableHeight / (cardHeight + minSpacing)));
+            
+            // 연도별로 정렬
+            const sortedOrgs = [...organizations].sort((a, b) => {
+                const yearA = a.생성연도 || minYear;
+                const yearB = b.생성연도 || minYear;
+                return yearA - yearB;
+            });
+            
+            // 기본 위치 정보 초기화 - 그리드 기반
+            const positions = sortedOrgs.map((org, index) => {
+                const col = index % cols;
+                const yearBasedY = yearToY(org.생성연도 || minYear);
+                
+                // 연도 기반 Y 위치에 약간의 랜덤 오프셋 추가
+                const randomOffsetY = (Math.random() - 0.5) * 60;
+                const baseY = Math.max(20, Math.min(availableHeight - cardHeight, yearBasedY + randomOffsetY));
+                
+                return {
+                    id: org.id,
+                    x: 20 + col * (cardWidth + minSpacing) + (Math.random() - 0.5) * 40,
+                    y: baseY,
+                    originalY: yearBasedY,
+                    org: org,
+                    connections: []
+                };
+            });
+            
+            // 고급 겹침 방지 알고리즘
+            for (let iteration = 0; iteration < 100; iteration++) {
                 let hasOverlap = false;
+                let maxOverlapDistance = 0;
                 
                 for (let i = 0; i < positions.length; i++) {
                     for (let j = i + 1; j < positions.length; j++) {
@@ -1389,24 +1467,85 @@
                         const xDiff = Math.abs(pos1.x - pos2.x);
                         const yDiff = Math.abs(pos1.y - pos2.y);
                         
-                        if (xDiff < cardWidth + minSpacing && yDiff < cardHeight + minSpacing) {
+                        const requiredXSpace = cardWidth + minSpacing;
+                        const requiredYSpace = cardHeight + minSpacing;
+                        
+                        if (xDiff < requiredXSpace && yDiff < requiredYSpace) {
                             hasOverlap = true;
+                            const overlapDistance = Math.sqrt(
+                                Math.pow(requiredXSpace - xDiff, 2) + 
+                                Math.pow(requiredYSpace - yDiff, 2)
+                            );
+                            maxOverlapDistance = Math.max(maxOverlapDistance, overlapDistance);
                             
-                            // 겹침 해결
-                            const moveDistance = (cardWidth + minSpacing - xDiff) / 2 + 5;
+                            // 겹침 해결 - 더 정교한 방법
+                            const pushForce = Math.min(20, overlapDistance / 2);
                             
-                            if (pos1.x < pos2.x) {
-                                pos1.x = Math.max(20, pos1.x - moveDistance);
-                                pos2.x = Math.min(containerWidth - cardWidth - 20, pos2.x + moveDistance);
-                            } else {
-                                pos1.x = Math.min(containerWidth - cardWidth - 20, pos1.x + moveDistance);
-                                pos2.x = Math.max(20, pos2.x - moveDistance);
+                            // X축 분리
+                            if (xDiff < requiredXSpace) {
+                                if (pos1.x < pos2.x) {
+                                    pos1.x = Math.max(20, pos1.x - pushForce);
+                                    pos2.x = Math.min(availableWidth - cardWidth, pos2.x + pushForce);
+                                } else {
+                                    pos1.x = Math.min(availableWidth - cardWidth, pos1.x + pushForce);
+                                    pos2.x = Math.max(20, pos2.x - pushForce);
+                                }
+                            }
+                            
+                            // Y축 분리 (연도를 고려한 제한적 이동)
+                            if (yDiff < requiredYSpace) {
+                                const yearDiff = Math.abs((pos1.org.생성연도 || minYear) - (pos2.org.생성연도 || minYear));
+                                const maxYMove = Math.min(pushForce, yearDiff > 5 ? 30 : 15);
+                                
+                                if (pos1.y < pos2.y) {
+                                    pos1.y = Math.max(20, pos1.y - maxYMove);
+                                    pos2.y = Math.min(availableHeight - cardHeight, pos2.y + maxYMove);
+                                } else {
+                                    pos1.y = Math.min(availableHeight - cardHeight, pos1.y + maxYMove);
+                                    pos2.y = Math.max(20, pos2.y - maxYMove);
+                                }
                             }
                         }
                     }
                 }
                 
-                if (!hasOverlap) break;
+                // 수렴 조건: 겹침이 없거나 개선이 미미할 때
+                if (!hasOverlap || maxOverlapDistance < 5) {
+                    break;
+                }
+            }
+            
+            // 경계 내 위치 보정
+            positions.forEach(pos => {
+                pos.x = Math.max(20, Math.min(availableWidth - cardWidth + 20, pos.x));
+                pos.y = Math.max(20, Math.min(availableHeight - cardHeight + 20, pos.y));
+            });
+            
+            // 최종 검증 및 강제 분리
+            for (let i = 0; i < positions.length; i++) {
+                for (let j = i + 1; j < positions.length; j++) {
+                    const pos1 = positions[i];
+                    const pos2 = positions[j];
+                    
+                    const xDiff = Math.abs(pos1.x - pos2.x);
+                    const yDiff = Math.abs(pos1.y - pos2.y);
+                    
+                    if (xDiff < cardWidth + minSpacing && yDiff < cardHeight + minSpacing) {
+                        // 강제 수직 배치
+                        if (pos1.y + cardHeight + minSpacing < availableHeight) {
+                            pos2.y = pos1.y + cardHeight + minSpacing;
+                        } else if (pos2.y - cardHeight - minSpacing > 20) {
+                            pos1.y = pos2.y - cardHeight - minSpacing;
+                        } else {
+                            // 수평 이동
+                            const availableX = availableWidth - cardWidth;
+                            pos2.x = Math.min(availableX, pos1.x + cardWidth + minSpacing);
+                            if (pos2.x > availableX) {
+                                pos1.x = Math.max(20, pos2.x - cardWidth - minSpacing);
+                            }
+                        }
+                    }
+                }
             }
             
             return positions;
@@ -1453,9 +1592,24 @@
             const fromPos = fromCard.position;
             const toPos = toCard.position;
             
-            // 카드 크기를 디바이스에 따라 조정
-            const cardWidth = isMobile() ? 140 : (isTablet() ? 160 : 190);
-            const cardHeight = isMobile() ? 80 : (isTablet() ? 90 : 100);
+            // 화면 크기에 따른 카드 크기 결정
+            let cardWidth, cardHeight;
+            if (window.innerWidth <= 360) {
+                cardWidth = 85;
+                cardHeight = 55;
+            } else if (window.innerWidth <= 480) {
+                cardWidth = 95;
+                cardHeight = 60;
+            } else if (window.innerWidth <= 768) {
+                cardWidth = 110;
+                cardHeight = 70;
+            } else if (window.innerWidth <= 1024) {
+                cardWidth = 140;
+                cardHeight = 80;
+            } else {
+                cardWidth = 190;
+                cardHeight = 100;
+            }
             
             const fromCenterX = fromPos.x + cardWidth / 2;
             const fromCenterY = fromPos.y + cardHeight / 2;
@@ -1869,4 +2023,4 @@
         }
     </script>
 </body>
-</html>
+</html
