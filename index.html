@@ -48,6 +48,43 @@
             align-items: center;
         }
         
+        .card-size-control {
+            display: flex;
+            align-items: center;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .card-size-control input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 2px;
+            outline: none;
+        }
+        
+        .card-size-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #d4af37;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .card-size-control input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #d4af37;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+        
         .menu-toggle {
             display: none;
             background: none;
@@ -603,6 +640,10 @@
                 display: block;
             }
             
+            .card-size-control {
+                display: none;
+            }
+            
             .timeline {
                 width: 40px;
                 left: 5px;
@@ -627,31 +668,8 @@
                 top: 70px;
             }
             
-            .focus-card {
-                width: 110px;
-                min-height: 70px;
-                padding: 8px;
-                border-radius: 8px;
-            }
-            
             .focus-card:hover {
                 transform: scale(1.03);
-            }
-            
-            .card-title {
-                font-size: 10px;
-                margin-bottom: 4px;
-                line-height: 1.1;
-            }
-            
-            .card-year {
-                font-size: 8px;
-                margin-bottom: 3px;
-            }
-            
-            .card-type {
-                font-size: 7px;
-                padding: 1px 3px;
             }
             
             .card-controls {
@@ -868,6 +886,12 @@
     <div class="header">
         <h1>🇰🇷 한국독립운동 중점도 🇰🇷</h1>
         <div class="header-controls">
+            <div class="card-size-control">
+                <label for="cardSizeSlider" style="color: #d4af37; font-size: 12px; margin-right: 8px;">카드 크기:</label>
+                <input type="range" id="cardSizeSlider" min="50" max="150" value="100" 
+                       style="width: 80px; margin-right: 8px;" onchange="updateCardSize(this.value)">
+                <span id="cardSizeValue" style="color: #d4af37; font-size: 12px; min-width: 30px;">100%</span>
+            </div>
             <button class="btn" onclick="openAddModal()">+ 단체 추가</button>
             <button class="btn" onclick="toggleEditMode()" id="editToggle">편집 모드</button>
             <button class="btn" onclick="refreshData()">🔄 새로고침</button>
@@ -1001,6 +1025,52 @@
         let isEditMode = false;
         let currentEditingId = null;
         let isMobileMenuOpen = false;
+        let cardSizeScale = 1.0; // 카드 크기 스케일 (100% = 1.0)
+        
+        // 카드 크기 제어 함수들
+        function updateCardSize(value) {
+            cardSizeScale = value / 100; // 50-150% -> 0.5-1.5
+            
+            // 양쪽 슬라이더 동기화
+            document.getElementById('cardSizeSlider').value = value;
+            document.getElementById('mobileCardSizeSlider').value = value;
+            document.getElementById('cardSizeValue').textContent = value + '%';
+            document.getElementById('mobileCardSizeValue').textContent = value + '%';
+            
+            // 카드들을 다시 생성
+            if (organizations.length > 0) {
+                createFocusCards();
+                createConnections();
+                showStatus(`카드 크기가 ${value}%로 조정되었습니다.`, 'info');
+            }
+        }
+        
+        function getScaledCardSize() {
+            // 기본 카드 크기 (데스크톱 기준)
+            let baseWidth = 190;
+            let baseHeight = 100;
+            
+            // 화면 크기에 따른 조정
+            if (window.innerWidth <= 360) {
+                baseWidth = 85;
+                baseHeight = 55;
+            } else if (window.innerWidth <= 480) {
+                baseWidth = 95;
+                baseHeight = 60;
+            } else if (window.innerWidth <= 768) {
+                baseWidth = 110;
+                baseHeight = 70;
+            } else if (window.innerWidth <= 1024) {
+                baseWidth = 140;
+                baseHeight = 80;
+            }
+            
+            // 사용자 설정 스케일 적용
+            return {
+                width: Math.round(baseWidth * cardSizeScale),
+                height: Math.round(baseHeight * cardSizeScale)
+            };
+        }
         
         // 모바일 메뉴 관리
         function toggleMobileMenu() {
@@ -1391,33 +1461,27 @@
         function calculateOptimalPositions() {
             if (organizations.length === 0) return [];
             
-            let containerWidth, cardWidth, cardHeight, minSpacing;
+            const scaledCardSize = getScaledCardSize();
+            const cardWidth = scaledCardSize.width;
+            const cardHeight = scaledCardSize.height;
+            
+            let containerWidth, minSpacing;
             
             if (window.innerWidth <= 360) {
                 containerWidth = window.innerWidth - 40;
-                cardWidth = 85;
-                cardHeight = 55;
-                minSpacing = 10;
+                minSpacing = Math.max(8, Math.round(10 * cardSizeScale));
             } else if (window.innerWidth <= 480) {
                 containerWidth = window.innerWidth - 50;
-                cardWidth = 95;
-                cardHeight = 60;
-                minSpacing = 12;
+                minSpacing = Math.max(10, Math.round(12 * cardSizeScale));
             } else if (window.innerWidth <= 768) {
                 containerWidth = window.innerWidth - 60;
-                cardWidth = 110;
-                cardHeight = 70;
-                minSpacing = 15;
+                minSpacing = Math.max(12, Math.round(15 * cardSizeScale));
             } else if (window.innerWidth <= 1024) {
                 containerWidth = window.innerWidth - 80;
-                cardWidth = 140;
-                cardHeight = 80;
-                minSpacing = 18;
+                minSpacing = Math.max(15, Math.round(18 * cardSizeScale));
             } else {
                 containerWidth = window.innerWidth - 180;
-                cardWidth = 190;
-                cardHeight = 100;
-                minSpacing = 20;
+                minSpacing = Math.max(18, Math.round(20 * cardSizeScale));
             }
             
             const containerHeight = window.innerHeight - (isMobile() ? 140 : 180);
@@ -1450,7 +1514,9 @@
                     y: baseY,
                     originalY: yearBasedY,
                     org: org,
-                    connections: []
+                    connections: [],
+                    width: cardWidth,
+                    height: cardHeight
                 };
             });
             
@@ -1491,6 +1557,65 @@
                                     pos2.x = Math.max(20, pos2.x - pushForce);
                                 }
                             }
+                            
+                            // Y축 분리 (연도를 고려한 제한적 이동)
+                            if (yDiff < requiredYSpace) {
+                                const yearDiff = Math.abs((pos1.org.생성연도 || minYear) - (pos2.org.생성연도 || minYear));
+                                const maxYMove = Math.min(pushForce, yearDiff > 5 ? 30 : 15);
+                                
+                                if (pos1.y < pos2.y) {
+                                    pos1.y = Math.max(20, pos1.y - maxYMove);
+                                    pos2.y = Math.min(availableHeight - cardHeight, pos2.y + maxYMove);
+                                } else {
+                                    pos1.y = Math.min(availableHeight - cardHeight, pos1.y + maxYMove);
+                                    pos2.y = Math.max(20, pos2.y - maxYMove);
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                // 수렴 조건: 겹침이 없거나 개선이 미미할 때
+                if (!hasOverlap || maxOverlapDistance < 5) {
+                    break;
+                }
+            }
+            
+            // 경계 내 위치 보정
+            positions.forEach(pos => {
+                pos.x = Math.max(20, Math.min(availableWidth - cardWidth + 20, pos.x));
+                pos.y = Math.max(20, Math.min(availableHeight - cardHeight + 20, pos.y));
+            });
+            
+            // 최종 검증 및 강제 분리
+            for (let i = 0; i < positions.length; i++) {
+                for (let j = i + 1; j < positions.length; j++) {
+                    const pos1 = positions[i];
+                    const pos2 = positions[j];
+                    
+                    const xDiff = Math.abs(pos1.x - pos2.x);
+                    const yDiff = Math.abs(pos1.y - pos2.y);
+                    
+                    if (xDiff < cardWidth + minSpacing && yDiff < cardHeight + minSpacing) {
+                        // 강제 수직 배치
+                        if (pos1.y + cardHeight + minSpacing < availableHeight) {
+                            pos2.y = pos1.y + cardHeight + minSpacing;
+                        } else if (pos2.y - cardHeight - minSpacing > 20) {
+                            pos1.y = pos2.y - cardHeight - minSpacing;
+                        } else {
+                            // 수평 이동
+                            const availableX = availableWidth - cardWidth;
+                            pos2.x = Math.min(availableX, pos1.x + cardWidth + minSpacing);
+                            if (pos2.x > availableX) {
+                                pos1.x = Math.max(20, pos2.x - cardWidth - minSpacing);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return positions;
+        }            }
                             
                             // Y축 분리 (연도를 고려한 제한적 이동)
                             if (yDiff < requiredYSpace) {
@@ -2023,4 +2148,4 @@
         }
     </script>
 </body>
-</html
+</html>
